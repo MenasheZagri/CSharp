@@ -23,6 +23,6 @@ namespace ConsoleApp63
             atomic.ResultPrinter = simple.PrintResultNicely;
             atomic.RunAgain = simple.RunAnother;
             atomic.Run();
-        }
+        } 
     } 
 }
