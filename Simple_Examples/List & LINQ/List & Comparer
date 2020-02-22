@@ -1,0 +1,46 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Mobile> phones = new List<Mobile>()
+            {
+                new Mobile(2020, "iPhone", 15.5f),
+                new Mobile (2019, "Android", 23.9f),
+                new Mobile(2021, "Google", 30.0f),
+                new Mobile(2018, "Nokia", 0.9f)
+            };
+
+            phones.ForEach(mobiles => Console.WriteLine(mobiles));
+            phones.Sort(new MobileCompareByYear());
+            Console.WriteLine("--- After Sort By Year---");
+            phones.ForEach(mobiles => Console.WriteLine(mobiles));
+            
+        }
+    }
+
+    public class Mobile
+    {
+        public int year;
+        public string name;
+        public float cpu;
+
+        public Mobile(int year, string name, float cpu)
+        {
+            this.year = year;
+            this.name = name;
+            this.cpu = cpu;
+        }
+
+        public override string ToString()
+        {
+            return $"year: {year} name: {name} cpu: {cpu}";
+        }
+    }
+
+    class MobileCompareByYear : IComparer<Mobile>
+    {
+        public int Compare(Mobile x, Mobile y)
+        {
+            return x.year - y.year;
+        }
+    }

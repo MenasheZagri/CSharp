@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CheckBiggerNumber
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Console.WriteLine("enter 2 digits (that sums to 100)");
+            int a, b;
+
+            do
+            {
+                a = Convert.ToInt32(Console.ReadLine());
+                b = Convert.ToInt32(Console.ReadLine());
+            }
+            while
+                (a + b != 100);
+            Console.WriteLine("a = " +a);
+            Console.WriteLine("b = " + b);
+
+            
+
+
+            /*x = Convert.ToInt32 (Console.ReadLine ());
+            int sum = 0;
+            int i = 0;*/
+
+        
+        }
+    }
+}

@@ -1,0 +1,32 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Create a CanellationToken
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+            //Run your normal task
+            Task task1 = Task.Run(() =>
+            {
+                while (true && !tokenSource.IsCancellationRequested)
+
+                {
+                    Thread.Sleep(500);
+                    Console.WriteLine("Hello from task1\t");
+                }
+            });
+
+            //create a cancellation task which calls a cancellation token
+            Task task2 = Task.Run(() =>
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Press any key to stop");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    tokenSource.Cancel();
+                }
+            );
+            task1.Wait();
+            task2.Wait();
+        }
+    }

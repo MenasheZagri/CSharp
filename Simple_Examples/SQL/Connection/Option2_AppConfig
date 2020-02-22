@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+    </startup>
+  <connectionStrings>
+    <add name="companydb_local" connectionString="Data source =Company; Initial catalog=DESKTOP-ON9QBHN\SQLEXPRESS;Integrated Security=True"/>
+  </connectionStrings>
+</configuration>

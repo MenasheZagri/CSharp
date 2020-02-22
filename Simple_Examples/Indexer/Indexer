@@ -1,0 +1,83 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Car honda = new Car(1234, 2020, "Honda Civic 1");
+            Car mazda = new Car(2123, 2021, "Mazda CX5");
+            Car subaru = new Car(89, 2022, "Subaru X3");
+
+            List<Car> cars = new List<Car>() { honda, mazda, subaru };
+            Garage gar = new Garage(cars);
+            Console.WriteLine(gar[1234]);
+            Console.WriteLine(gar["Mazda CX5"]);
+        }
+    }
+
+    public class Garage
+    {
+        public List<Car>Cars { get; set; }
+        public Garage (List<Car>cars)
+        {
+            Cars = cars;
+        }
+        
+        public Car this [int carid]
+        {
+            get
+            {
+                foreach (var car in Cars)
+                {
+                    if (car.Id == carid)
+                        return car;
+                }
+                return null;
+            }
+        }
+
+        public Car this[string carName]
+        {
+            get
+            {
+                foreach (var car in Cars)
+                {
+                    if (car.SpecificName == carName)
+                        return car;
+                }
+                return null;
+            }
+        }
+    }
+
+    public class Car
+    {
+        public int Id { get; set; }
+        public int Year { get; set; }
+        public String SpecificName { get; set; }
+
+        public Car(int id, int year, string specificName)
+        {
+            Id = id;
+            Year = year;
+            SpecificName = specificName;
+        }
+
+        public override bool Equals (object obj)
+        {
+            if (ReferenceEquals(obj, null))
+                return false;
+            Car c = obj as Car;
+            if (c == null)
+                return false;
+            return this.Id == c.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id;
+        }
+
+        public override string ToString()
+        {
+            return $"id: {Id}, year: {Year}, specificname: {SpecificName}";
+        }
+    }

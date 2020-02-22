@@ -1,0 +1,61 @@
+// print all primes from 1-100
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ConsoleApp17
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            for (int a = 1; a <= 100; a++)
+            {
+                int m = 2;
+                while (a % m != 0 && m < a)
+                { m++; }
+                if (a == m) 
+                { Console.WriteLine($"Prime number: {a}"); }
+                else
+                { Console.Write(""); }
+            }                        
+        }
+    }
+}
+
+
+
+// With Explanations
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ConsoleApp17
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            for (int a = 1; a <= 100; a++)
+            {
+                int m = 2; // initialize test cell
+                while (a % m != 0 && m < a) // check if prime number
+                { m++; } // add 1 to test cell
+                if (a == m) // if number equals test cell(which is a prime number)
+                { Console.WriteLine($"Prime number: {a}"); }
+                else
+                { Console.Write(""); }
+            }                        
+        }
+    }
+}

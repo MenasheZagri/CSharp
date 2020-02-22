@@ -1,0 +1,110 @@
+    //create a class that inherent from EventArgs with properties for the arguments
+    public class DivideByZeroEventArgs : EventArgs
+    {
+        public int Nominator { get; set; }
+        public int Denominator { get; set; }
+    }
+
+    public class RedAlerts
+    {
+        //Declate a function that will handle events, use object sender type and eventArgs
+        public void DividedByZeroHandler(object sender, DivideByZeroEventArgs e)
+        {
+            Console.WriteLine(sender);
+            Console.WriteLine($"Red Alert!: Divided by zero in operation : {e.Nominator} / 0");
+        }
+    }
+    public class Calculator
+    {
+        //a public event that is eventArgs with it's name
+        public event EventHandler<DivideByZeroEventArgs> DividedByZero;
+
+        public void OnDividedByZero(int numerator)
+        {
+            if (DividedByZero != null)
+            {
+                //invoking the (THIS) DivideByZero event with it's arguments
+                DividedByZero.Invoke(this, new DivideByZeroEventArgs{Nominator = numerator});
+            }
+        }
+        public void Calculate(int x, int y, string oper)
+        {
+            switch (oper)
+            {
+                case "+": Console.WriteLine(x+y);
+                    break;
+                case "-":
+                    Console.WriteLine(x - y);
+                    break;
+                case "*":
+                    Console.WriteLine(x * y);
+                    break;
+                case "/":
+                    if (y == 0)
+                    {
+                        //call the invoking function by name and throw any argument
+                        OnDividedByZero(x);
+                    }
+                    Console.WriteLine(x / y);
+                    break;
+            }
+        }
+    }
+
+    public class SceintificCalculator
+    {
+        public event EventHandler<DivideByZeroEventArgs> DividedByZero;
+        public void OnDividedByZero(int numerator)
+        {
+            if (DividedByZero != null)
+            {
+                //invoking the (THIS) DivideByZero event with it's arguments
+                DividedByZero.Invoke(this, new DivideByZeroEventArgs { Nominator = numerator });
+            }
+        }
+
+        public void Calculate(int x, int y, string oper)
+        {
+            switch (oper)
+            {
+                case "+":
+                    Console.WriteLine(x + y);
+                    break;
+                case "-":
+                    Console.WriteLine(x - y);
+                    break;
+                case "*":
+                    Console.WriteLine(x * y);
+                    break;
+                case "/":
+                    if (y == 0)
+                    {
+                        //call the invoking function by name and throw any argument
+                        OnDividedByZero(x);
+                    }
+                    Console.WriteLine(x / y);
+                    break;
+            }
+        }
+    }
+
+    class Program 
+    {
+        static void Main(string[] args)
+        {
+            Calculator calc = new Calculator();
+            RedAlerts alert = new RedAlerts();
+            //put the alert event handler inside the event (delegate)
+            calc.DividedByZero += alert.DividedByZeroHandler;
+
+            SceintificCalculator scicalc = new SceintificCalculator();
+            scicalc.DividedByZero += alert.DividedByZeroHandler;
+
+            calc.Calculate(2,2,"+");
+            calc.Calculate(6, 2, "*"); 
+            calc.Calculate(12, 4, "-");
+           // calc.Calculate(2, 0, "/");
+            scicalc.Calculate(4, 0, "/");
+
+        }
+    }

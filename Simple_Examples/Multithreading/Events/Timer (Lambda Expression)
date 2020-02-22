@@ -1,0 +1,4 @@
+            Timer t = new Timer(500);
+            t.Elapsed += (sender, e) => Console.WriteLine(e.SignalTime);
+            t.Start();
+            while (true) { } ;

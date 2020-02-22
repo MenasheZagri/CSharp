@@ -1,0 +1,59 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Task t1 = new Task(() =>
+            {
+                Console.WriteLine("");
+                Thread.Sleep(1000);
+                Console.WriteLine("Hello from task1");
+            }, TaskCreationOptions.LongRunning);
+
+            Task t2 = new Task(() =>
+            {
+                Console.WriteLine("");
+                Thread.Sleep(1000);
+                Console.WriteLine("Hello from task2");
+            }, TaskCreationOptions.LongRunning);
+
+            t1.Start();
+            t2.Start();
+
+            Task.WaitAll(new[] {t1,t2});
+            var task_list = new[] {t1,t2};
+            int index = Task.WaitAny(task_list);
+            Console.WriteLine($"{task_list[index]}");
+
+            Random random = new Random();
+            Task<int> t3 = new Task<int>(() =>
+            {
+                int number = random.Next(100);
+                return number;
+            }, TaskCreationOptions.LongRunning);
+
+            t3.RunSynchronously();
+            Console.WriteLine(t3.Status);
+            Console.WriteLine(t3.Status);
+            Console.WriteLine(t3.Result);
+
+            Task<string[]> t4 = new Task<string[]>(() =>
+            {
+                int number = random.Next(10 * 100);
+                Thread.Sleep(number);
+                Console.WriteLine("");
+                return new string[] {"hello", "Tasks", "Whats up?"};
+            }, TaskCreationOptions.LongRunning);
+
+            t4.Start();
+            Console.WriteLine(t4.Result);
+            Console.WriteLine("..........");
+            while (t4.Status != TaskStatus.RanToCompletion)
+            {
+                Thread.Sleep(10);
+            }
+
+            Console.WriteLine(t4.Result);
+        }
+
+
+    }

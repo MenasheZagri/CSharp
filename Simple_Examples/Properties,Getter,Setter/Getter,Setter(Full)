@@ -1,0 +1,64 @@
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Fruit pineapple = new Fruit(500);
+            Console.WriteLine($"Calories: {pineapple.GetCalories()}");
+
+        }
+    }
+
+    internal class Fruit
+    {
+        private int _calories;
+        public Fruit(int calories)
+        {
+            _calories = calories;
+        }
+
+        //setter
+        public void SetCalories(int calories)
+        {
+            if (calories > 0)
+            {
+                _calories = calories;
+            }
+            else
+            {
+                ErrorCaloric(calories);
+            }
+        }
+
+        //getter
+        public int GetCalories()
+        {
+            return _calories;
+        }  
+
+        //Property
+        public int Calories
+        {
+            get
+            {
+                return _calories;
+            }
+            set 
+            {
+                if (Calories > 0)
+                {
+                    _calories = Calories;
+                }
+                else
+                {
+                    ErrorCaloric(Calories);
+                }
+            }
+        }
+
+        private void ErrorCaloric(int num)
+        {
+            Console.WriteLine($"Error in caloric input! {Calories} lower than zero.");
+        }
+    }
+}

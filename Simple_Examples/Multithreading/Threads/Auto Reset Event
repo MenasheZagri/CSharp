@@ -1,0 +1,54 @@
+    class Program
+    {
+        private static bool wasPageLoaded = false;
+
+        //Create a manual reset event gate and specify it's status, true = open / false = closed
+        static AutoResetEvent are = new AutoResetEvent(false); //gate
+        //After each time the gate opens the entering thread closes the gate.
+        private static void ShowAdv()
+        {
+            Thread.Sleep(new Random().Next(1000));
+            //specify wait for gate to open
+            are.WaitOne();
+            Console.WriteLine("Drawing Ad.....");
+        }
+        private static void ShowAllFlights()
+        {
+            Thread.Sleep(new Random().Next(1000));
+            are.WaitOne();
+            Console.WriteLine("Showing All Flights.....");
+        }
+        private static void ShowClocks()
+        {
+
+            Thread.Sleep(new Random().Next(1000));
+            are.WaitOne();
+            Console.WriteLine("Clocks.....");
+        }
+        private static void ShowCredentials()
+        {
+            Thread.Sleep(new Random().Next(1000));
+            are.WaitOne();
+            Console.WriteLine("Please Enter UserName & Password:");
+        }
+        private static void LoadPage()
+        {
+            Thread.Sleep(1000);
+            Console.WriteLine(".......Page finished loading.");
+
+            //A mechanism that opens the gate for each thread
+           for (int i = 0; i <= 5; i++)
+           {
+               Thread.Sleep(500);
+               are.Set();
+           }
+        }
+        static void Main(string[] args)
+        {
+            new Thread(ShowAllFlights).Start();
+            new Thread(ShowAdv).Start();
+            new Thread(LoadPage).Start();
+            new Thread(ShowClocks).Start();
+            new Thread(ShowCredentials).Start();
+        }
+    }

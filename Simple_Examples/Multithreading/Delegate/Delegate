@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ConsoleApp43
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            VideoEncoder videoEncoder = new VideoEncoder();
+            videoEncoder.EncodeVideo(new Video {Title = "SuperMan", Seconds = 200});
+            WhatsappSender whatsapp = new WhatsappSender();
+            videoEncoder.VideoEncoderHandler_func_using_action = whatsapp.SendWhatsapp;
+
+
+            Console.WriteLine("Main Finished");
+
+        }
+    }
+
+    public class VideoEncoder
+    {
+
+
+        public void OnVideoEncoded(Video v, int duration)
+        {
+            if (VideoEncoderHandler_func_using_action != null)
+            {
+                VideoEncoderHandler_func_using_action(v, duration);
+            }
+        }
+
+        // 1 option one - first we define delegate signature, then we define
+        // a public variable of the function holder.
+
+        public delegate void VideoEncoderHandler(Video v, int duration);
+
+        public VideoEncoderHandler VideoEncoderHandler_func; // //you can add getter setter property here
+
+        // option 2
+        public Action <Video, int> VideoEncoderHandler_func_using_action; //you can add getter setter property here
+
+        public void EncodeVideo(Video v)
+        {
+            Random r = new Random();
+            Console.WriteLine("Start Encoding");
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            Thread.Sleep(r.Next(1000 + v.Seconds, 4000 + v.Seconds));
+            Console.WriteLine("Finished Encoding");
+            sw.Stop();
+            OnVideoEncoded(v, (int)sw.ElapsedMilliseconds / 1000);
+        }
+    }
+
+    public class Video
+    {
+        public string Title { get; set; }
+        public int Seconds { get; set; }
+    }
+
+    public class WhatsappSender
+    {
+        public void SendWhatsapp(Video v, int encodeDuration)
+        {
+            Console.WriteLine("Sending Whatsapp");
+            Console.WriteLine($"Video {v.Title} length {v.Seconds} was encoded during {encodeDuration}");
+        }
+    }
+
+}

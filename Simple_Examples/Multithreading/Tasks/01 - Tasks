@@ -1,0 +1,66 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+        
+            //Simple task creation:
+            Task task = New Task (functionName());
+            task.Run();
+            task.Wait();
+            
+            //Simple task creation 2:
+            Task task = Task.Run(FunctionName);
+            task.Wait();
+            
+            //Tasks
+            //Default -- Task is taken from ThreadPool, managed by Task Scheduler
+            Task task = new Task(() =>
+            {
+                Console.WriteLine($"Hello from task id: {Thread.CurrentThread.ManagedThreadId}");
+            });
+            task.Start();
+            task.Wait();
+
+            //Non ThreadPool -- Task is not from ThreadPool, managed by cancellation token (object)
+            Task taskLong = new Task(() =>
+            {
+                Thread.Sleep(100);
+                Console.WriteLine($"Hello from task LongRunning id: {Thread.CurrentThread.ManagedThreadId}");
+            },
+            TaskCreationOptions.LongRunning);
+            taskLong.Start();
+            taskLong.Wait();
+
+            //Synchronously running = Start + Wait 
+            Task taskRunSync = new Task(() =>
+            {
+                Console.WriteLine($"Hello from task RunSynchronously id: {Thread.CurrentThread.ManagedThreadId}");
+            });
+            taskRunSync.RunSynchronously();
+
+            //Task returning int
+            Task <int> taskReturnInt = new Task<int>(() =>
+            {
+                Console.WriteLine($"Hello from task RunSynchronously id: {Thread.CurrentThread.ManagedThreadId}");
+                return 5;
+            });
+            taskReturnInt.Start();
+            Console.WriteLine($"Hello from taskReturnInt, result is: {taskReturnInt.Result} , id:  {Thread.CurrentThread.ManagedThreadId}");
+
+            //Additional uses:
+            //Task with WaitAll Array
+            Task arrElement1 = new Task(() =>
+            {
+                Console.WriteLine($"Hello from task arrayElement1 id:  {Thread.CurrentThread.ManagedThreadId}");
+            });
+
+            Task arrElement2 = new Task(() =>
+            {
+                Console.WriteLine($"Hello from task arrayElement2 id:  {Thread.CurrentThread.ManagedThreadId}");
+            });
+            arrElement1.Start();
+            arrElement2.Start();
+            Task.WaitAll(new[] {arrElement1, arrElement2});
+            //Task with WaitAny waits for any of the below tasks to finish
+        }
+    }

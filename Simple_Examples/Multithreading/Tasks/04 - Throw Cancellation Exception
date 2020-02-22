@@ -1,0 +1,44 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            Task task = Task.Run(() =>
+            {
+                int i = 0;
+                while (i<100)
+                {
+                    Console.WriteLine("test");
+                    Thread.Sleep(10);
+                    i++;
+                }
+                //throe exception if cancellation token requested
+                tokenSource.Token.ThrowIfCancellationRequested();
+            });
+
+            Console.ReadLine();
+            tokenSource.Cancel();
+            Thread.Sleep(1000);
+            CheckTask(task);
+
+            //check if task is faulted then handle the exception
+            if (task.IsFaulted)
+            {
+                task.Exception.Handle(exception =>
+                    {
+                        Console.WriteLine(exception);
+                        return true;
+                    }
+                );
+            }
+        }
+
+        static void CheckTask(Task task)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Task id: " + task.Id + " " + task.Status);
+            Console.WriteLine("Canceled: " + task.IsCanceled);
+            Console.WriteLine("Faulted: "+ task.IsFaulted);
+            Console.WriteLine("Completed: " + task.IsCompleted);
+        }
+    }

@@ -1,0 +1,50 @@
+   class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Conductor
+            GameMachine game = new GameMachine();
+            HighScorer highScorer = new HighScorer();
+            #endregion
+
+            game.NewMaxScore = highScorer.NewHighScoreReached;
+            game.IncreaseScore(10);
+            game.IncreaseScore(120);
+        }
+    }
+
+    class GameMachine
+    {
+        public Action<int> CoinInsertedFunction { get; set; }
+        public Func<int, string> NewMaxScore { get; set; }
+        private int _score = 0;
+        private int _currentMaxScore = 100;
+
+        public void CoinSensorTriggered(int money)
+        {
+            if (CoinInsertedFunction != null)
+            {
+                CoinInsertedFunction.Invoke(money);
+            }
+        }
+        public void IncreaseScore(int morePoints)
+        {
+            _score += morePoints;
+            if (_score > _currentMaxScore)
+            {
+                if (NewMaxScore != null)
+                Console.WriteLine((NewMaxScore(_score)));
+            }
+            else
+            {
+                Console.WriteLine(_score + " is less than " + _currentMaxScore);
+            }
+        }
+    }
+    class HighScorer
+    {
+        public string NewHighScoreReached(int score)
+        {
+            return $"WOW you reached {score} ";
+        }
+    }

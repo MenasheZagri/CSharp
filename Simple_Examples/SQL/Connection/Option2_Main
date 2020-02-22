@@ -1,0 +1,3 @@
+            cmd.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["companydb_local"].ConnectionString);
+            cmd.Connection.Open();
+            cmd.Connection.Close();

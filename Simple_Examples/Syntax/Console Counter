@@ -1,0 +1,2 @@
+                Console.Write(string.Format("{0}", i));
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));

@@ -1,0 +1,33 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Short delegate declare
+            // Func <type of 2 inputs, type of 1 output, name = insert function into it
+            Func<int, int, int> methodHolder = Add;
+            methodHolder += Subtract;
+
+            //Short delegate declare
+            // Action for void  <type of input, name = insert function into it
+            Action<string> methodVoidWithStringParameter = PrintName;
+
+            methodHolder.Invoke(7, 3);
+            methodVoidWithStringParameter.Invoke("Manny");
+        }
+        static public int Add(int x, int y)
+        {
+            Console.WriteLine($"Add {x+y}");
+            return x + y;
+        }
+
+        static public int Subtract(int x, int y)
+        {
+            Console.WriteLine($"Subtract {x-y}");
+            return x - y;
+        }
+
+        static public void PrintName(string name)
+        {
+            Console.WriteLine($"Hello: {name}");
+        }
+    }

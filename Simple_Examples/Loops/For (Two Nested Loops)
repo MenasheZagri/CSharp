@@ -1,0 +1,35 @@
+//Print Triangle - Normal and Inverse pyramid
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp18
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
+            for (int a = 0; a < n; a=a+1)
+            {
+                for (int g = 1; g < a; g=g+1)
+                {
+                    Console.Write(g);
+                }
+                Console.WriteLine("");
+            }
+
+            for (int i = n; i > 0; i=i-1)
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    Console.Write(j);
+                }
+                Console.WriteLine("");
+            }
+        }
+    }
+}

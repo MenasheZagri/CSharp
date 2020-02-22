@@ -1,0 +1,32 @@
+    class Program
+    {
+        private static void Work()
+        {
+            Console.WriteLine($"Starting Thread id {Thread.CurrentThread.ManagedThreadId}");
+            Console.WriteLine($"On context {Thread.CurrentContext.ContextID}");
+            for (int i = 0; i <=5; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(i);
+                Thread.Sleep(399);
+            }
+            Console.ResetColor();
+
+        }
+
+        static void Main(string[] args)
+        {
+            List<Thread> threads = new List<Thread>();
+            for (int i = 0; i < 5; i++)
+            {
+                threads.Add(new Thread(new ThreadStart(Work)));
+            }
+
+            for (int i = 0; i < threads.Count; i++)
+            {
+                threads[i].Start();
+                threads[i].Join();
+            }
+            return;
+        }
+    }

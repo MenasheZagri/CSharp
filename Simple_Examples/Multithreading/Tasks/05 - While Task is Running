@@ -1,0 +1,41 @@
+    class Program
+    {
+        static Random random = new Random();
+        static void Main(string[] args)
+        {
+            Task task1 = Task.Run(() =>
+            {
+                Console.WriteLine("Hello from task1");
+            });
+            task1.Wait();
+
+            //creation option - Task Factory does exactly what Task.Run but it can add additional parameters
+            //such as non-ThreadPool tasks: TaskCreationOptions.LongRunning 
+            Task task2 = Task.Factory.StartNew(() =>
+                {
+                    Delay("task2");
+                    Console.WriteLine("Hello from task2");
+                },
+                //additional parameters
+                TaskCreationOptions.LongRunning);
+                
+                //if you want to wait for Task2 to complete, create a while loop but remember to use context switch
+                while (!task2.IsCompleted)
+                {
+                    Thread.Sleep(10);
+                }
+        }
+        static void Delay(string taskName)
+        {
+            Console.WriteLine($"({taskName} is doing a Thread Sleep)");
+            for (int i = 0; i <= 100; i++)
+            {
+                Console.Write("Counting: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(string.Format("{0}", i));
+                Console.ResetColor();
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                Thread.Sleep(10);
+            }
+        } 
+    }

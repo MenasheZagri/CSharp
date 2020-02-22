@@ -1,0 +1,51 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Teleport teleport = new Teleport();
+            Signaler signaler = new Signaler();
+            teleport.SignalReceived += signaler.SignalHandler;
+            teleport.Transmission("Transmitting");
+        }
+    }
+
+    public class SignalReceivedEventArgs : EventArgs
+    {
+        public string Signal { get; set; }
+    }
+
+    public class Signaler
+    {
+        public void SignalHandler(object sender, SignalReceivedEventArgs e)
+        {
+            Console.WriteLine($"the sender is {sender}");
+            Console.WriteLine($"Signal {e.Signal} received!");
+        }
+    }
+
+    public class Teleport
+    {
+        public event EventHandler<SignalReceivedEventArgs> SignalReceived;
+        public void OnSignalReceived(string message)
+        {
+            if (SignalReceived != null)
+            {
+                SignalReceived.Invoke(this, new SignalReceivedEventArgs{Signal= message});
+            }
+        }
+        public void Transmission(string message)
+        {
+            if (message!= null)
+            {
+                Console.WriteLine("Beginning transmission of data: ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.Write(i);
+                }
+                Console.WriteLine("");
+                Console.ResetColor();
+                OnSignalReceived(message);
+            }
+        }
+    }

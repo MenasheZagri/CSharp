@@ -1,0 +1,37 @@
+    //Marker interface (contract of abilities)
+    interface IOldCode
+    {
+    }
+
+    interface IGoodCode
+    {
+    }
+
+    interface IAreaCalculator
+    {
+        double GetArea();
+    }
+
+    //base class
+    abstract class Shape
+    {
+        public abstract void do1();
+    }
+
+    //father inheritance from base class
+    abstract class Circle : Shape, IOldCode, IGoodCode, IAreaCalculator
+    {
+        public double GetArea()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    //child inheritance from father
+    class BigCircle : Circle
+    {
+        public override void do1()
+        {
+            throw new NotImplementedException();
+        }
+    }

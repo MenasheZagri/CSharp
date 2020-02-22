@@ -1,0 +1,34 @@
+    class Program
+    {
+        static Stopwatch sw = new Stopwatch();
+
+        static void Main(string[] args)
+        {
+            MyThreadSafeList list = new MyThreadSafeList();
+            for (int i = 0; i < 100; i++)
+            {
+                new Thread(list.Add).Start();
+                new Thread(list.Remove).Start();
+            }
+        }
+    }
+
+    class MyThreadSafeList
+    {
+        List<int> numbers = new List<int>();
+        object key = new object();
+        public void Add()
+        {
+            Monitor.Enter(key); 
+            numbers.Add(1);
+            Monitor.Exit(key);
+        }
+
+        public void Remove()
+        {
+            Monitor.Enter(key);
+            numbers.RemoveAt(0);
+            Monitor.Exit(key);
+        }
+    }
+ 

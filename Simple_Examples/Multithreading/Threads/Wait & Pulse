@@ -1,0 +1,39 @@
+   class Program
+    {
+        static object key = new object();
+        private static int fixedPhones = 0;
+        static void Main(string[] args)
+        {
+            new Thread(() => { CustomerService();}).Start();
+            new Thread(() => { CustomerService();}).Start();
+            new Thread(() => { CustomerService();}).Start();
+
+            Thread.Sleep(100);
+            new Thread(() => { TechService();}).Start();
+            Thread.Sleep(100);
+            new Thread(() => { TechService(); }).Start();
+            Thread.Sleep(100);
+            new Thread(() => { TechService(); }).Start();
+            Thread.Sleep(100);
+            new Thread(() => { TechService(); }).Start();
+            Thread.Sleep(100);
+            new Thread(() => { TechService(); }).Start();
+        }
+
+        static void CustomerService()
+        {
+            Monitor.Enter(key);
+            Monitor.Wait(key);
+            Console.WriteLine("....Calling customer");
+            Monitor.Exit(key);
+        }
+
+        static void TechService()
+        {
+            Monitor.Enter(key);
+            Console.WriteLine("Fixing Phone....");
+            fixedPhones++;
+            Monitor.Pulse(key);
+            Monitor.Exit(key);
+        }
+    }

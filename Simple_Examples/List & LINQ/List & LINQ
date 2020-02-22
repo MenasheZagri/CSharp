@@ -1,0 +1,33 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Array = must declare array size (faster)
+            //List = musn't declare size - dynamic array size, can add / remove items (slower)
+            //LINQ = complicated actions in a single code line
+
+            List<int> l1 =new List<int>();
+            //l1.Add("a"); // type safe!
+            l1.Add(12); // no boxing
+            int x = l1[0];//no unboxing
+            l1.AddRange(new List<int> { 1, 2, 3 });
+
+            // add a list to list
+            List<int> l2 = new List<int> { 1, 2, 3 };
+            
+            //option 1 
+            foreach(int item in l2)
+            {
+                l1.Add(item);
+            }
+
+            //option 2 -- shorter
+            l1.AddRange(l2);
+
+            l1.RemoveAt(0);
+
+            //using LINQ
+            l1.Single();
+
+            l1.ForEach(l => Console.WriteLine(l));
+        }

@@ -1,0 +1,13 @@
+            List<int> numbers = new List<int>();
+            numbers.Add(1);
+            numbers.Add(5);
+
+            foreach (var VARIABLE in numbers)
+            {
+                Console.WriteLine(VARIABLE);
+            }
+
+            foreach (int item in numbers)
+            {
+                Console.WriteLine(item);
+            }

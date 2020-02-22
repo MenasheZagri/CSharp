@@ -1,0 +1,84 @@
+    class Program
+    {
+
+        public static void Intro()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\t\t\tHi and welcome to Thread Test\n" + "\t\t# # # # # # # # # # # # # # # # # # # # # #");
+            Console.WriteLine("\t\tPress Enter to go to the next thread\n\n\n");
+        }
+
+        public static void WelcomeText()
+        {
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+            synth.SetOutputToDefaultAudioDevice();
+            //synth.SelectVoiceByHints(VoiceGender.Female,VoiceAge.Child);
+            for (;;)
+            {
+                synth.Speak("Hello and welcome to Thread Test. The Thread Test will run 2 threads," +
+                            "1 after the other. You may stop each thread by pressing the enter key..." +
+                            "Thread Test is also running a third thread, reading you this message...");
+            }
+
+        }
+        public static void ForThreadStart()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("I am thread 'a', void type, no parameters");
+            for (int i = 0; i < 15030; i++)
+            {
+                Console.Write(string.Format("{0}", i));
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                Thread.Sleep(60);
+            }
+        }
+
+        public static void ForParameterizedThreadStart(object obj)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"I am thread 'b', void type, and my parameter is: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(obj);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            for (int i = 0; i < 23532465; i++)
+            {
+                Console.Write(string.Format("{0}", i));
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                Thread.Sleep(60);
+
+            }
+        }
+        static void Main(string[] args)
+        {
+
+
+            //sign thread into delegate
+            //Parameterized function goes into here:
+            ParameterizedThreadStart method = new ParameterizedThreadStart(ForParameterizedThreadStart);
+            
+            //non parameter function goes into here:
+            ThreadStart methodThreadStart = ForThreadStart;
+
+            //Create a new thread instance with the function
+            Thread a = new Thread(methodThreadStart);
+            Thread b = new Thread(ForParameterizedThreadStart);
+            Thread c = new Thread(WelcomeText);
+
+            Intro();
+            a.Name = "Thread One";
+            b.Name = "Thread Two";
+            c.Name = "Text to Voice";
+            a.Start();
+            Console.WriteLine($"Thread {a.Name} status: " + a.ThreadState);
+            
+            //Set thread c as daemon
+            c.IsBackground = true;
+            c.Start();
+            Console.ReadLine();
+            a.Abort();
+            b.Start("Object parameter");
+            Console.ReadLine();
+            b.Abort();
+            c.Abort();
+        }
+    }

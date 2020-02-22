@@ -1,0 +1,14 @@
+    class Program 
+    {
+        public static void ElapsedEventHandler(object sender, ElapsedEventArgs e)
+        {
+            Console.WriteLine(e.SignalTime);
+        }
+        static void Main(string[] args)
+        {
+            Timer t = new Timer(500);
+           t.Elapsed += ElapsedEventHandler;
+           t.Start();
+           while (true) { };
+        }
+    }

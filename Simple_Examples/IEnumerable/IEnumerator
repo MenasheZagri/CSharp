@@ -1,0 +1,125 @@
+//IEnumerator
+//IEnumerable
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+             Car honda = new Car("Honda", "Red", "Airbag Sensor Replacement", 85000);
+             Car mazda = new Car("Mazda", "Black", "Oil Change", 100000);
+             Car ford = new Car("Ford", "White", "Collateral Damage", 135000);
+             Car toyota = new Car("Toyota", "Blue", "Chassis Damange", 90000);
+             Car audi = new Car("Audi", "Black", "Replace Engine", 190000);
+
+             Garage garage = new Garage();
+
+             Console.WriteLine(honda["Treatment"]);
+             honda["Color"] = "Green";
+             Console.WriteLine(honda["Color"]);
+
+            garage.AddLight(honda);
+            garage.AddLight(mazda);
+            garage.AddHeavy(ford);
+            garage.AddHeavy(toyota);
+            garage.AddHeavy(audi);
+
+            Console.WriteLine(garage[1]);
+            Console.WriteLine(garage[4]);
+
+            //Calling INumerator to print all cars in the list
+            foreach (Car car in garage)
+            {
+                Console.WriteLine(car);
+            }
+        }
+    }
+
+    class Car
+    {
+        public string Name { get; private set; }
+        public string Color { get; private set; }
+        public string Treatment { get; private set; }
+        public int Price { get; private set; }
+
+        public Car(string name, string color, string treatment, int price)
+        {
+            Name = name;
+            Color = color;
+            Treatment = treatment;
+            Price = price;
+        }
+
+        //String Indexer
+        public string this[string fieldName]
+        {
+            get
+            {
+                if (fieldName == "Name")
+                    return this.Name;
+                if (fieldName == "Color")
+                    return this.Color;
+                if (fieldName == "Treatment")
+                    return this.Treatment;
+                if (fieldName == "Price")
+                    return this.Price.ToString();
+                return "Unknown";
+            }
+
+            set
+            {
+                if (fieldName == "Name")
+                    this.Name = value;
+                if (fieldName == "Color")
+                    this.Color = value;
+                if (fieldName == "Treatment")
+                    this.Treatment = value;
+                if (fieldName == "Price")
+                    this.Price = Convert.ToInt32(Price);
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Car Name: {Name}, Price: {Price}, Color: {Color}, Treatment {Treatment}";
+        }
+    }
+
+    //Declare class & inherent IEnumerable interface and specify the return object type
+    class Garage : IEnumerable<Car>
+    {
+        private List<Car> carHeavyTreatment = new List<Car>();
+        private List<Car> carLightTreatment = new List<Car>();
+
+        //Int indexer
+        public Car this[int index]
+        {
+            get
+            {
+                if (carHeavyTreatment.Count > index)
+                    return carHeavyTreatment[index];
+                return carLightTreatment[index - carHeavyTreatment.Count];
+            }
+        }
+        public void AddHeavy(Car car)
+        {
+            carHeavyTreatment.Add(car);
+        }
+
+        public void AddLight (Car car)
+        {
+            carLightTreatment.Add(car);
+        }
+
+        public IEnumerator<Car> GetEnumerator()
+        {
+            List<Car> allCars = new List<Car>(carHeavyTreatment);
+            allCars.AddRange(carLightTreatment);
+            return allCars.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }

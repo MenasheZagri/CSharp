@@ -1,0 +1,25 @@
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Fruit pineapple = new Fruit(500);
+            Console.WriteLine($"Calories: {pineapple.GetCalories()}");
+        }
+    }
+
+    internal class Fruit
+    {
+        private int _calories;
+        public Fruit(int calories)
+        {
+            _calories = calories;
+        }
+        
+        //setter
+        public void SetCalories(int calories) => _calories = calories;
+
+        //getter
+        public int GetCalories() => _calories;
+    }
+}

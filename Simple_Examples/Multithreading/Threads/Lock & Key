@@ -1,0 +1,55 @@
+    class Program
+    {
+        static Stopwatch sw = new Stopwatch();
+
+        static void Main(string[] args)
+        {
+            MyThreadSafeList list = new MyThreadSafeList();
+            for (int i = 0; i < 100; i++)
+            {
+                new Thread(list.Add).Start();
+                new Thread(list.Remove).Start();
+            }
+        }
+    }
+
+    class MyThreadSafeList
+    {
+        List<int> numbers = new List<int>();
+        object keyNumbers = new object();
+        List<int> digits = new List<int>();
+        object keyDigit = new object();
+
+        public void Add()
+        {
+            lock (keyNumbers)
+            {
+                numbers.Add(1);
+            }
+        }
+
+        public void Remove()
+        {
+            lock (keyNumbers)
+            {
+                numbers.RemoveAt(0);
+            }
+        }
+
+        public void AddDigit()
+        {
+            lock (keyDigit)
+            {
+                digits.Add(1);
+            }
+        }
+
+        public void RemoveDigit()
+        {
+            lock (keyDigit)
+            {
+                digits.RemoveAt(0);
+            }
+        }
+    }
+ 

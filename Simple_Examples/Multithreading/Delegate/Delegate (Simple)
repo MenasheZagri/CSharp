@@ -1,0 +1,30 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            methodHolderForVoidAnAcceptString = PrintHello;
+            methodHolderForVoidAnAcceptString.Invoke("Manny");
+
+            MethodDelegateOne = PrintGoodBye;
+            MethodDelegateOne.Invoke("Menash");
+        }
+
+        public static void PrintHello(string message)
+        {
+            Console.WriteLine($"Hello {message}");
+        }
+
+        public static void PrintGoodBye(string message)
+        {
+            Console.WriteLine($"Goodbye {message}");
+        }
+
+        //Declare a delegate with function return and in type
+        public delegate void methodReturnVoidAcceptString(string name);
+
+        //Create a field and give it a name
+        private static methodReturnVoidAcceptString methodHolderForVoidAnAcceptString;
+
+        public delegate void delegateOne(string name);
+        public static delegateOne MethodDelegateOne;
+    }

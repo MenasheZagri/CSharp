@@ -1,0 +1,30 @@
+    class Program
+    {
+        static Stopwatch sw = new Stopwatch();
+
+        static void Main(string[] args)
+        {
+            MyThreadSafeList list = new MyThreadSafeList();
+            for (int i = 0; i < 100; i++)
+            {
+                new Thread(list.Add).Start();
+                new Thread(list.Remove).Start();
+            }
+        }
+    }
+
+    class MyThreadSafeList
+    {
+
+        System.Collections.Concurrent.ConcurrentDictionary<int,int> dictionary = new ConcurrentDictionary<int, int>();
+        public void Add()
+        {
+            dictionary.TryAdd(1, 1);
+        }
+
+        public void Remove()
+        {
+            dictionary.TryRemove(1, 0);
+        }
+    }
+ 

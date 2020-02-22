@@ -1,0 +1,81 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ConsoleApp42
+{
+    class Program
+    {
+        
+        private static ArrayList _array = new ArrayList();
+        private static Mutex _mutex = new Mutex();
+
+        public static void Job()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                _mutex.WaitOne();
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Waiting Mutex 1");
+
+                Console.ForegroundColor = ConsoleColor.White;
+                for (int j = 0; j < 3850; j++)
+                {
+                    Console.Write("Counting milliseconds: ");
+                    // Write some text with no line ending.
+                    Console.Write(string.Format("{0}", j));
+
+                    // Write space to end of line, and then CR with no LF
+                    Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                }
+                Console.ResetColor();
+
+                _array.Add(i);
+                if (i % 15 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(i);
+                    _array.RemoveAt(_array.Count - 1);
+                    Thread.Sleep(50);
+                }
+                _mutex.ReleaseMutex();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\nMutex 1 Released");
+                Thread.Sleep(250);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Thread t = new Thread(new ThreadStart(Job));
+            t.Start();
+
+            for (int i = 0; i < 10000; i++)
+            {
+                _mutex.WaitOne();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\t\t\t\t Waiting Mutex 2");
+                Thread.Sleep(250);
+                _array.Add(i);
+                if (i % 15 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\t\t\t\t" + i);
+                    _array.RemoveAt(_array.Count - 1);
+                    Thread.Sleep(50);
+                }
+                _mutex.ReleaseMutex();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\t\t\t\t Mutex 2 Released");
+                Thread.Sleep(250);
+            }
+            Console.WriteLine("Bye");
+        }
+
+    }
+}

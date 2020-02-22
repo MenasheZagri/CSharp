@@ -1,0 +1,55 @@
+//Manualresetevent
+   class Program
+    {
+        private static bool wasPageLoaded = false;
+
+        //Create a manual reset event gate and specift it's status, true = open / false = closed
+        static ManualResetEvent mre = new ManualResetEvent(false); //gate
+        private static void ShowAdv()
+        {
+            Thread.Sleep(new Random().Next(1000));
+            //specify wait for gate to open
+            mre.WaitOne();
+
+            //another option is to let the thread cut in line (jump over the gate)
+            //specify delay in milliseconds:            
+            //mre.WaitOne(100);
+            Console.WriteLine("Drawing Ad.....");
+        }
+        private static void ShowAllFlights()
+        {
+            Thread.Sleep(new Random().Next(1000));
+            mre.WaitOne();
+            Console.WriteLine("Showing All Flights.....");
+        }
+        private static void ShowClocks()
+        {
+
+            Thread.Sleep(new Random().Next(1000));
+            mre.WaitOne();
+            Console.WriteLine("Clocks.....");
+        }
+        private static void ShowCredentials()
+        {
+            Thread.Sleep(new Random().Next(1000));
+            mre.WaitOne();
+            Console.WriteLine("Please Enter UserName & Password:");
+        }
+        private static void LoadPage()
+        {
+            Thread.Sleep(1000);
+            Console.WriteLine(".......Page finished loading.");
+            //Open the gate
+            mre.Set();
+            //Closes the gate
+            mre.Reset();
+        }
+        static void Main(string[] args)
+        {
+            new Thread(ShowAllFlights).Start();
+            new Thread(ShowAdv).Start();
+            new Thread(LoadPage).Start();
+            new Thread(ShowClocks).Start();
+            new Thread(ShowCredentials).Start();
+        }
+    }

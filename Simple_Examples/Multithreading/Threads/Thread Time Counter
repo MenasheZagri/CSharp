@@ -1,0 +1,94 @@
+    class Program
+    {
+        static Stopwatch sw = new Stopwatch();
+        static public int arraySize = 10_000_000;
+        static void Main(string[] args)
+        {
+            RunSingle(4);
+            Console.WriteLine();
+            Thread.Sleep(1000);
+
+            RunMulti();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+
+            RunThreadPool();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+
+        }
+
+        static void RunSingle(object obj)
+        {
+            sw.Start();
+            int[] numbers = new int[arraySize];
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = 1;
+            }
+            sw.Stop();
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Using Single Method "+ sw.Elapsed);
+            Console.ResetColor();
+        }
+
+        static void RunMulti()
+        {
+            sw.Start();
+            for (int i = 0; i < 10; i++)
+            {
+                new Thread(RunSingleViaThreads).Start();
+            }
+            sw.Stop();
+
+            Console.ResetColor();
+            Console.WriteLine("Using 10 threads "+sw.Elapsed);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ResetColor();
+        }
+
+        static void RunSingleViaThreads(object obj)
+        {
+            sw.Start();
+            int[] numbers = new int[arraySize];
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = 1;
+            }
+            sw.Stop();
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            //Console.WriteLine("Using Single via Threads Method " + sw.Elapsed);
+            Console.ResetColor();
+        }
+
+
+        static void RunThreadPool()
+        {
+            sw.Start();
+            for (int i = 0; i < 10; i++)
+            {
+                ThreadPool.QueueUserWorkItem(RunSingleViaThreadPool);
+            }
+            sw.Stop();
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Using Threadpool " +sw.Elapsed);
+            Console.ResetColor();
+        }
+
+        static void RunSingleViaThreadPool(object obj)
+        {
+            sw.Start();
+            int[] numbers = new int[arraySize];
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = 1;
+            }
+            sw.Stop();
+            Console.ResetColor();
+            Console.WriteLine("Using Single via ThreadPool " + sw.Elapsed);
+            Console.ResetColor();
+        }
+    }

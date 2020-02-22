@@ -1,0 +1,9 @@
+        static void Main(string[] args)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string serverName = @"DESKTOP-ON9QBHN\SQLEXPRESS";
+            string dbName = "COMPANY";
+            cmd.Connection = new SqlConnection($"Data source ={serverName}; Initial catalog={dbName};Integrated Security=True");
+            cmd.Connection.Open();
+            cmd.Connection.Close();
+        }

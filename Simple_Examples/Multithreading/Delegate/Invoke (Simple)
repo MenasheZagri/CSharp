@@ -1,0 +1,25 @@
+    class Program
+    {
+        public delegate int FunctionReturnIntAccept2Ints(int x, int y);
+
+        static FunctionReturnIntAccept2Ints methods;
+
+        public static int func1(int x, int y)
+        {
+            Console.Write($"invoked func1 Add \t {x} + {y}:\t\t" + (x + y) + "\n");
+            return x+y;
+        }
+
+        public static int func2(int x, int y)
+        {
+            Console.Write($"invoked func2 Sub \t {x} - {y}:\t\t" + (x - y) + "\n");
+            return x - y;
+        }
+
+        static void Main(string[] args)
+        {
+            methods = new FunctionReturnIntAccept2Ints(func1);
+            methods += func2;
+            methods.Invoke(8, 2);
+        }
+    }

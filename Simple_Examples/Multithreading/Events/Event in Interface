@@ -1,0 +1,24 @@
+    class Program
+    {
+        // Event Vs. Delegate
+        // 1- Event cannot be invoked from outside the class
+        // 2- Event must be += in order to sign a method in it
+        // 3- Event can be inside an interface thus making every child realize it
+        interface inter
+        {
+            event EventHandler MyEvent;
+        }
+
+        class AB : inter
+        {
+            public event EventHandler MyEvent;
+        }
+
+        static void Main(string[] args)
+        {
+            AB a = new AB();
+
+            // the below cannot invoke an event since it's outside it's class
+            a.MyEvent();
+        }
+    }

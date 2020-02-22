@@ -1,0 +1,16 @@
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            foreach (var v in Enum.GetValues((typeof(LightSwitchState))) )
+            {
+                Console.WriteLine(v);
+            }
+        }
+    } 
+     public enum LightSwitchState
+    {
+        OFF = 0,
+        ON = 1,
+        BROKEN = 3,
+    }

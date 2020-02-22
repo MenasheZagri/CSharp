@@ -1,0 +1,37 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Task.Run<int>(() =>
+            {
+                Console.WriteLine($"Starting task... id: {Thread.CurrentThread.ManagedThreadId}");
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.Write(string.Format("{0}", i));
+                    Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                    Thread.Sleep(50);
+                }
+
+                Console.WriteLine($"Task Completed... id: {Thread.CurrentThread.ManagedThreadId}");
+                return 5;
+            }).ContinueWith((Task<int> antecedent) =>
+            {
+                Console.WriteLine($"Starting task... id: {Thread.CurrentThread.ManagedThreadId}");
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.Write(string.Format("{0}", i));
+                    Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                    Thread.Sleep(50);
+                }
+
+                Console.WriteLine($"Task Completed... id: {Thread.CurrentThread.ManagedThreadId}");
+                return 6;
+            }).ContinueWith((Task<int> antecedent) =>
+            {
+                Console.WriteLine("Child Task");
+                Console.WriteLine($"Task Completed... id: {Thread.CurrentThread.ManagedThreadId}");
+                Console.WriteLine("Result " + antecedent.Result);
+            });
+            Console.ReadLine();
+        }
+    }

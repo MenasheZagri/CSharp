@@ -1,0 +1,79 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Yarkan yatzataTzadik = new Yarkan();
+            Restaurant smadar = new Restaurant();
+            HR hr = new HR();
+
+            smadar.RunOutOFVegetablesEventHandler += yatzataTzadik.SupplyFast;
+            
+            smadar.MakeSalad();
+            smadar.MakeSalad();
+
+            smadar.
+        }
+    }
+
+    class Restaurant
+    {
+        private int tomatoCount = 2;
+        public event EventHandler<VegEventArgs> RunOutOFVegetablesEventHandler;
+        public event EventHandler<MissingEmployeeEventArgs> MissingEmployeeEventHandler;
+        private void OnRunOutOfVegetables(List<string> veg)
+        {
+            if (RunOutOFVegetablesEventHandler != null)
+            {
+                RunOutOFVegetablesEventHandler.Invoke(this, new VegEventArgs{VegetablesList = veg});
+            }
+        }
+
+        public void OnMissingEmployee(string myPosition)
+        {
+            if (MissingEmployeeEventHandler != null)
+            {
+                MissingEmployeeEventHandler.Invoke(this, new MissingEmployeeEventArgs{myPosition = pos});
+            }
+        }
+        public void MakeSalad()
+        {
+            //for example ran out of tomato
+            tomatoCount--;
+            Console.WriteLine($"{tomatoCount}");
+            if (tomatoCount <= 0)
+            {
+                OnRunOutOfVegetables(new List<string> {"Tomato"});
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Cafe Smadar Hertzel 80 Tel-Aviv";
+        }
+    }
+
+    public class VegEventArgs : EventArgs
+    {
+        public List<string> VegetablesList { get;  set; }
+    }
+
+    public class MissingEmployeeEventArgs : EventArgs
+    {
+        public string PositionName { get;  set; }
+    }
+
+    public class Yarkan
+    {
+        public void SupplyFast(object sender, VegEventArgs veg)
+        {
+            veg.VegetablesList.ForEach(v=> { Console.WriteLine($"Supply fast 100KG OK {v} to {sender}"); });
+        }
+    }
+
+    public class HR
+    {
+        public void SendEmployee(object sender, MissingEmployeeEventArgs miss)
+        {
+            Console.WriteLine($"");
+        }
+    } 
