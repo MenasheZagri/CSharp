@@ -1,0 +1,23 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Secret<int> s = new Secret<int>(1);
+            Console.WriteLine(s);
+        }
+    }
+
+    public class Secret<T>
+    {
+        public T Data { get; set; }
+        
+        public Secret (T data)
+        {
+            Data = data;
+        }
+
+        public override string ToString()
+        {
+            return $"Data is: {Data}";
+        }
+    }

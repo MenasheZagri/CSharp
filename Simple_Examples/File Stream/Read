@@ -1,0 +1,29 @@
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\temp\MyTest.txt";
+
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("File " + path + " does not exists!");
+                return;
+            }
+
+            using (Stream readingStream = new FileStream(path, FileMode.Open))
+            {
+                byte[] temp = new byte[11];
+                int len = 0;
+
+                while ((len = readingStream.Read(temp, 0 , temp.Length)) >0)
+                {
+                    String s = Encoding.UTF8.GetString(temp, 0, len);
+                    Console.WriteLine(s);
+                }
+
+            }
+            Console.ReadLine();
+        }
+    }
+}

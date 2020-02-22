@@ -1,0 +1,3 @@
+            Random r = new Random();
+            int a = r.Next(100, 500);
+            Console.WriteLine(a);

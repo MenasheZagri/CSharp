@@ -1,0 +1,20 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //static - does not require an instance but is singular
+            // meaning it cannot contain over single type & data
+            string info = "info2";
+            Print.PrintMe(info);
+        }
+
+    }
+
+    class Print
+    {
+        public static string PrintMe(string info)
+        {
+            Console.WriteLine(info);
+            return info;
+        }
+    }

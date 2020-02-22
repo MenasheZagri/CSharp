@@ -1,0 +1,33 @@
+    //constructor overload, starting with base ctor, then the rest
+    class Program
+
+        
+    {
+        static void Main(string[] args)
+        {
+            Person p = new Person("danny", 18);
+        }
+    }
+
+    public class Human
+    {
+        public string name;
+        public Human (string name)
+        {
+            this.name = name;
+        }
+    }
+
+    public class Person:Human
+    {
+        public int age;
+        public Person (string name) : base (name)
+        {
+
+        }
+
+        public Person ( string name, int age) : this (name)
+        {
+            this.age = age;
+        }
+    }

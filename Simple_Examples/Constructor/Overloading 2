@@ -1,0 +1,32 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Person p1 = new Person(1234, "Menashe", "Odem 4", 'm');
+            Console.WriteLine(p1.ToString());
+        }
+    }
+    class Person
+    {
+        public int _id;
+        public string _name;
+        public string _address;
+        public char _gender;
+
+        public Person (int id, string name, string address)
+        {
+            _id = id;
+            _name = name;
+            _address = address;
+        }
+
+        public Person (int id, string name, string address, char gender) :this (id,name,address)
+        {
+            _gender = gender;
+        }
+
+        public override string ToString()
+        {
+            return ($"Name: {_name}, ID: {_id}, lives in {_address}, Gender: {_gender}");
+        }
+    }

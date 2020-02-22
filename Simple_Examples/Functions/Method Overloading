@@ -1,0 +1,20 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            PrintValues print = new PrintValues();
+            print.Print(2);
+            print.Print("a");
+        }
+    }
+    class PrintValues
+    {
+        public void Print (int x)
+        {
+            Console.WriteLine($"Integer: {x}");
+        }
+        public void Print(string s)
+        {
+            Console.WriteLine($"String: {s}");
+        }
+    }

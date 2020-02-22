@@ -1,0 +1,8 @@
+            Func<int,int> mypower2 = x => x * x;
+            Console.WriteLine(mypower2(3));
+
+            //explanation
+            //declare function with i/o type
+            // name it, then use => as lambda expression following by the function
+            Func<int, int> mypower3 = x => x * x;
+            Console.WriteLine(mypower3(6));

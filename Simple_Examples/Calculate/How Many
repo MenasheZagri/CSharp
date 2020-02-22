@@ -1,0 +1,33 @@
+// how many bank notes
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp18
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int sum = Convert.ToInt32(Console.ReadLine());
+
+            int cls100 = sum / 100;
+            sum = sum % 100;
+
+            int cls30 = sum / 30;
+            sum = sum % 30;
+
+            int cls10 = sum / 10;
+            sum = sum % 10;
+
+            int cls1 = sum / 1;
+            sum = sum % 1;
+
+            Console.WriteLine($" class of 100: {cls100}\n class of 30: {cls30}\n class of 10: {cls10}\n and {cls1} goes home (or smoking cigarettes behind the gym)\n ");
+
+
+        }
+    }
+}

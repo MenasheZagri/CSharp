@@ -1,0 +1,36 @@
+    class Program
+    {
+
+        static async Task jobTask()
+        {
+            await Task.Run(() =>
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Starting....");
+                Console.WriteLine("Sleeping for a second");
+                Thread.Sleep(1000);
+                Console.WriteLine(".......Finished");
+            });
+            Console.WriteLine("Doing this after...");
+
+
+            await Task.Run(() =>
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+
+                Console.WriteLine("Starting 2 ....");
+                Console.WriteLine("Sleeping for another second");
+                Thread.Sleep(1000);
+                Console.WriteLine(".......Finished this as well");
+            });
+            Console.WriteLine("Doing this after...");
+
+        }
+        static void Main(string[] args)
+        {
+            Task task = jobTask();
+            task.Wait();
+            Console.ResetColor();
+            Console.WriteLine("Hello from main...");
+        }
+    }

@@ -1,0 +1,8 @@
+            ArrayList list = new ArrayList() {1,2,3};
+            list.Add(10);
+            list.Add("what");
+
+            foreach (object item in list)
+            {
+                Console.WriteLine(item);
+            }

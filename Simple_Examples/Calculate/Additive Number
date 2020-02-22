@@ -1,0 +1,33 @@
+// Answer 3 - Additive number
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a;
+            int sum = 0;
+            Console.WriteLine("Enter number to additive (negative to exit)");
+
+            a = Convert.ToInt32(Console.ReadLine());
+            while (a >= 0)
+            {
+                sum = sum + a;
+                a = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.WriteLine("sum = " + sum);
+
+        }
+
+
+
+
+
+    }
+}

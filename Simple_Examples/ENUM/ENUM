@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Users users = new Users();
+            users.WriteUsers(UserType.Administrator | UserType.Airline);
+
+        }
+    }
+    [Flags]
+    public enum UserType
+    {
+        Administrator = 1,
+        Customer = 2,
+        Airline = 4
+    }
+    class Users
+    {
+        public void WriteUsers(UserType user)
+        {
+            switch (user)
+            {
+                case UserType.Administrator:
+                    Console.WriteLine("Administrator");
+                    break;
+                case UserType.Customer:
+                    Console.WriteLine("Customer");
+                        break;
+                case UserType.Airline:
+                    Console.WriteLine("Airline");
+                    break;
+                default:
+                    Console.WriteLine("error null or mismatch input");
+                    break;
+            }
+        }
+    }
+}

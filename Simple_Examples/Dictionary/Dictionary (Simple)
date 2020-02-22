@@ -1,0 +1,36 @@
+    class Program
+    {
+        class A<TKey, TValue>
+        {
+
+        }
+        static void Main(string[] args)
+        {
+            Dictionary <int, Person> mapIdToPerson = new Dictionary<int, Person>();
+            Person danny = new Person(338, "Danny");
+            Person dan = new Person(338, "Dan");
+            
+            mapIdToPerson.Add(danny.Id, danny);
+            //mapIdToPerson.Add(dan.Id, dan); // will explode
+            mapIdToPerson.Add(dan.Id, dan);
+            mapIdToPerson[dan.Id] = dan; //will override
+            Console.WriteLine(danny);
+            Console.WriteLine(dan);
+        }
+    }
+
+    public class Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Person (int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public override string ToString()
+        {
+            return $"ID {Id} name {Name}";
+        }
+    }

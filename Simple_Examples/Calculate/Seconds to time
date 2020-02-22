@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int launchTime = 16;
+            int a = Convert.ToInt32(Console.ReadLine());
+            
+
+            int hr = a / 3600;
+            a = a % 3600;
+
+            int min = a / 60;
+            a = a % 60;
+
+            int sec = a / 1;
+            a = a % 1;
+
+            Console.WriteLine($" The missile will land at {launchTime+hr}:0{min}:0{sec} seconds");
+
+        }
+    }
+}

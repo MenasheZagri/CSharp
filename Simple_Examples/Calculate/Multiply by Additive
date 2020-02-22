@@ -1,0 +1,39 @@
+
+// Answer 7 - mul by add
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp10
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter 2 numbers (mul by add)");
+            Console.WriteLine("");
+            int a = Convert.ToInt32(Console.ReadLine()); ;
+            int b = Convert.ToInt32(Console.ReadLine()); ;
+            //a = Convert.ToInt32(Console.ReadLine());
+            //b = Convert.ToInt32(Console.ReadLine());
+            int i = 0;
+            int sum = a;
+
+            while ((a * b) > sum)
+            {
+                sum = sum + a;
+                i++;
+            }
+            i = i + 1;
+
+            Console.WriteLine("");
+            Console.WriteLine(" your mul through sum is: " + sum);
+            Console.WriteLine("");
+            Console.WriteLine(" the number " +a +" added " + i + " times");
+
+        }
+    }
+}

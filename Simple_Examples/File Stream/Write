@@ -1,0 +1,36 @@
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\temp\MyTest";
+            Directory.CreateDirectory(@"C:\temp");
+            Stream writingStream = new FileStream(path, FileMode.Create);
+
+            try
+            {
+                string Txt = "hello world";
+
+                byte[] bytes = Encoding.ASCII.GetBytes(Txt);
+
+                if (writingStream.CanWrite)
+                {
+                    writingStream.Write(bytes, 0, bytes.Length);
+                    Console.WriteLine("Writing: " + Txt + "\nto path: " + path);
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Error:" + e);
+            }
+
+            finally
+            {
+                writingStream.Close();
+            }
+            Console.WriteLine();
+
+        }
+    }
+}

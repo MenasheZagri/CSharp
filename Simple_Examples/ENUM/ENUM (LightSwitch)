@@ -1,0 +1,76 @@
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            LightSwitch light = new LightSwitch();
+            LightSwitchState state = LightSwitchState.ON;
+            Console.WriteLine(light.ToString());
+            Console.WriteLine(light.TranslateState());
+            light.ChangeState();
+            Console.WriteLine(light.ToString());
+            Console.WriteLine(light.TranslateState());
+            light.ElectricShock();
+            Console.WriteLine(light.ToString());
+            Console.WriteLine(light.TranslateState());
+
+            Enum.TryParse("3", out LightSwitchState newState);
+            Console.WriteLine(newState);
+        }
+    }
+
+    public class LightSwitch
+    {
+        private LightSwitchState _state;
+
+        public LightSwitch()
+        {
+            this._state = LightSwitchState.ON;
+        }
+
+        public void ChangeState()
+        {
+            if (_state != LightSwitchState.BROKEN)
+            {
+                if (_state == LightSwitchState.ON)
+                {
+                    _state = LightSwitchState.OFF;
+                }
+                else
+                {
+                    _state = LightSwitchState.ON;
+                }
+            }
+        }
+
+        public void ElectricShock()
+        {
+            _state = LightSwitchState.BROKEN;
+        }
+
+        public string TranslateState()
+        {
+            switch (_state)
+            {
+                case LightSwitchState.ON:
+                    return "Dolek";
+                case LightSwitchState.OFF:
+                    return "Kavuy";
+                case LightSwitchState.BROKEN:
+                    return "Shavur";
+                default:
+                    throw new NotImplementedException($"Type {_state} does not appear on the list");
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"the light status is: {_state}";
+        }
+    }
+
+    public enum LightSwitchState
+    {
+        OFF = 0,
+        ON = 1,
+        BROKEN = 3,
+    }

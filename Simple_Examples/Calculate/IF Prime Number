@@ -1,0 +1,31 @@
+//Answer 4 - Prime number test
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter number to check if prime number");
+            int a = Convert.ToInt32(Console.ReadLine());
+            int i = 2;
+
+            // a = Convert.ToInt32(Console.ReadLine());
+
+            while (a % i != 0 && i < a) ;
+            i = i++;
+
+            if (a == i)
+            { Console.WriteLine("prime, optimus"); }
+            else
+            { Console.WriteLine("not prime"); }
+
+
+        }
+    }
+}

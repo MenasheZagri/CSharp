@@ -1,0 +1,25 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Point<int> point = new Point<int>(1, 4);
+            Console.WriteLine(point);
+
+        }
+    }
+    public class Point<T>
+    {
+        public T x { get; set; }
+        public T y { get; set; }
+
+        public Point (T x, T y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public override string ToString()
+        {
+            return $"x: {x} y: {y}";
+        }
+    }

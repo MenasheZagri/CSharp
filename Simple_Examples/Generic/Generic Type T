@@ -1,0 +1,187 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+             Car honda = new Car("Honda", "Red", "Airbag Sensor Replacement", 85000);
+             Car mazda = new Car("Mazda", "Black", "Oil Change", 100000);
+             Car ford = new Car("Ford", "White", "Collateral Damage", 135000);
+             Car toyota = new Car("Toyota", "Blue", "Chassis Damage", 90000);
+             Car audi = new Car("Audi", "Black", "Replace Engine", 190000);
+             Bike suzuki = new Bike("Suzuki","Red","Tire Change",15000,"OilBased");
+
+             //Since garage class is generic, declare it's object type (from class) during instance
+             Garage<Car> garage = new Garage<Car>();
+             Garage<Bike> garage2 = new Garage<Bike>();
+
+             Console.WriteLine(honda["Treatment"]);
+             honda["Color"] = "Green";
+             Console.WriteLine(honda["Color"]);
+
+            garage.AddLight(honda);
+            garage.AddLight(mazda);
+            garage.AddHeavy(ford);
+            garage.AddHeavy(toyota);
+            garage.AddHeavy(audi);
+            garage2.AddLight(suzuki);
+
+            Console.WriteLine(garage[1]);
+            Console.WriteLine(garage[4]);
+
+            //Calling INumerator to print all cars in the list
+            foreach (Car car in garage)
+            {
+                Console.WriteLine(car);
+            }
+
+            foreach (Bike bike in garage2)
+            {
+                Console.WriteLine(bike);
+            }
+        }
+    }
+
+    class Car
+    {
+        public string Name { get; private set; }
+        public string Color { get; private set; }
+        public string Treatment { get; private set; }
+        public int Price { get; private set; }
+
+        public Car(string name, string color, string treatment, int price)
+        {
+            Name = name;
+            Color = color;
+            Treatment = treatment;
+            Price = price;
+        }
+
+        //String Indexer
+        public string this[string fieldName]
+        {
+            get
+            {
+                if (fieldName == "Name")
+                    return this.Name;
+                if (fieldName == "Color")
+                    return this.Color;
+                if (fieldName == "Treatment")
+                    return this.Treatment;
+                if (fieldName == "Price")
+                    return this.Price.ToString();
+                return "Unknown";
+            }
+
+            set
+            {
+                if (fieldName == "Name")
+                    this.Name = value;
+                if (fieldName == "Color")
+                    this.Color = value;
+                if (fieldName == "Treatment")
+                    this.Treatment = value;
+                if (fieldName == "Price")
+                    this.Price = Convert.ToInt32(Price);
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Car Name: {Name}, Price: {Price}, Color: {Color}, Treatment {Treatment}";
+        }
+    }
+
+    //Declare class & inherent IEnumerable interface and specify the return object type
+    //Declare generic type class and IEnumerable interface
+    class Garage<T> : IEnumerable<T>
+    {
+        private List<T> carHeavyTreatment = new List<T>(); 
+        private List<T> carLightTreatment = new List<T>();
+        private List<T> bikeLightTreatment = new List<T>();
+
+        //Int indexer
+        public T this[int index]
+        {
+            get
+            {
+                if (carHeavyTreatment.Count > index)
+                    return carHeavyTreatment[index];
+                return carLightTreatment[index - carHeavyTreatment.Count];
+            }
+        }
+        public void AddHeavy(T parameter)
+        {
+            carHeavyTreatment.Add(parameter);
+        }
+
+        public void AddLight (T parameter)
+        {
+            carLightTreatment.Add(parameter);
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            List<T> allCars = new List<T>(carHeavyTreatment);
+            allCars.AddRange(carLightTreatment);
+            return allCars.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    //===============================================================================================================
+
+    class Bike
+    {
+        public string Name { get; private set; }
+        public string Color { get; private set; }
+        public string HandBreaks { get; private set; }
+        public string Treatment { get; private set; }
+        public int Price { get; private set; }
+
+
+        public Bike(string name, string color, string treatment, int price, string handBreaks)
+        {
+            Name = name;
+            Color = color;
+            Treatment = treatment;
+            Price = price;
+            HandBreaks = handBreaks;
+        }
+
+        //String Indexer
+        public string this[string fieldName]
+        {
+            get
+            {
+                if (fieldName == "Name")
+                    return this.Name;
+                if (fieldName == "Color")
+                    return this.Color;
+                if (fieldName == "Treatment")
+                    return this.Treatment;
+                if (fieldName == "Price")
+                    return this.Price.ToString();
+                return "Unknown";
+            }
+
+            set
+            {
+                if (fieldName == "Name")
+                    this.Name = value;
+                if (fieldName == "Color")
+                    this.Color = value;
+                if (fieldName == "Treatment")
+                    this.Treatment = value;
+                if (fieldName == "Price")
+                    this.Price = Convert.ToInt32(Price);
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Bike Name: {Name}, Price: {Price}, Color: {Color}, Treatment: {Treatment}";
+        }
+    }

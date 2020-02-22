@@ -1,0 +1,33 @@
+// Answer 6 - Atzeret
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter number (Atzeret)");
+            int a;
+            int i;
+            int atz;
+            a = Convert.ToInt32(Console.ReadLine());
+            //a = Int32.Parse(a);
+            atz = 1;
+            i = 2;
+            while (i <= a)
+            {
+                atz = atz * i;
+                i++;
+            }
+
+            Console.WriteLine(atz);
+
+        }
+    }
+}

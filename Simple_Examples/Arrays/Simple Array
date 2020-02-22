@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] manny = new int[3];
+            manny[0] = 100;
+            manny[1] = 200;
+            manny[2] = 300;
+            foreach(int i in manny)
+                Console.WriteLine(i);
+
+        }
+    }
+}

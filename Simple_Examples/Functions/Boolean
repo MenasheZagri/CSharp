@@ -1,0 +1,64 @@
+// Answer 02 & 03 - Print1to10 function and input outside function
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter number between 1 and 10");
+            int a = Convert.ToInt32(Console.ReadLine());
+            PrintNumber1to10(a);
+        }
+
+        private static void PrintNumber1to10(int a)
+        {
+            if (a < 1 || a > 10)
+            {
+                Console.WriteLine("number not in range");
+            }
+            else
+            {
+                switch (a)
+                {
+                    case 1:
+                        Console.WriteLine("one");
+                        break;
+                    case 2:
+                        Console.WriteLine("two");
+                        break;
+                    case 3:
+                        Console.WriteLine("three");
+                        break;
+                    case 4:
+                        Console.WriteLine("four");
+                        break;
+                    case 5:
+                        Console.WriteLine("five");
+                        break;
+                    case 6:
+                        Console.WriteLine("six");
+                        break;
+                    case 7:
+                        Console.WriteLine("seven");
+                        break;
+                    case 8:
+                        Console.WriteLine("eight");
+                        break;
+                    case 9:
+                        Console.WriteLine("nine");
+                        break;
+                    case 10:
+                        Console.WriteLine("ten");
+                        break;
+                }
+            }
+        }
+    }
+}

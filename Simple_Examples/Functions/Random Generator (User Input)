@@ -1,0 +1,12 @@
+        static void Main(string[] args)
+        {
+            int min, max;
+            int user = Convert.ToInt32(Console.ReadLine());
+            min = user - 5;
+            max = user + 5;
+            Random rand = new Random();
+            for (int i = 0; i < 15; i++)
+            {
+                Console.WriteLine(rand.Next(min, max));
+            }
+        }

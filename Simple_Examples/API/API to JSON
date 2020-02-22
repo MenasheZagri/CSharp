@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using RestSharp;
+
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string imageAddress1 = "[\"https://www.lulus.com/images/product/xlarge/2897940_559982.jpg?w=560\"]";
+            var client =
+                new RestClient("http://syteapi.com/v1.1/offers/bb?account_id=8406&sig=5e442b792646a35576bb72ba");
+            client.Timeout = 600;
+            var request = new RestRequest(Method.POST);
+            request.AddParameter("text/plain", imageAddress1, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
+
+
+            XmlSerializer myXmlSerializer = new XmlSerializer(typeof(string));
+            string outputFile = @"E:\Dropbox\R&D\Syte\output.json";
+            using (Stream file = new FileStream(outputFile, FileMode.Create))
+            {
+                myXmlSerializer.Serialize(file, response.Content);
+            }
+        }
+
+    }
+}

@@ -1,0 +1,40 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string result = string.Empty;
+
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(0,"Zero");
+            dictionary.Add(1,"One");
+            dictionary.Add(2, "Two");
+            dictionary.Add(3, "Three");
+            dictionary.Add(4, "Four");
+            dictionary.Add(5, "Five");
+            dictionary.Add(6, "Six");
+            dictionary.Add(7, "Seven");
+            dictionary.Add(8, "Eight");
+            dictionary.Add(9, "Nine");
+            dictionary.Add(10, "Ten");
+            dictionary.Add(-1, "Exit");
+
+            Console.WriteLine("Welcome to 'Number-To-Word' translator!");
+            Console.WriteLine("# # # # # # # # # # # # # # # # # # # #");
+            Console.WriteLine("Choose any number between 0-10, or -1 to exit\n");
+            do
+            {
+                Console.Write("Enter number: ");
+                if (int.TryParse(Console.ReadLine(), out int number) == false) Console.WriteLine("This is not a number, using default value...");
+
+                if (dictionary.TryGetValue(number, out result))
+                {
+                    Console.WriteLine(result);
+                }
+                else
+                {
+                    Console.WriteLine($"{result} is not found");
+                }
+
+            } while (result != "Exit");
+        }
+    }

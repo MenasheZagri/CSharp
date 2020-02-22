@@ -1,0 +1,21 @@
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            DinnerDishes meal = DinnerDishes.APPETIZERS | DinnerDishes.STARTERS | DinnerDishes.MAINS |
+                                DinnerDishes.DESSERT;
+            Console.WriteLine(meal);
+        }
+    }
+
+    [Flags]
+    public enum DinnerDishes
+    {
+        none = 0,
+        APPETIZERS = 1,
+        STARTERS = 2,
+        MAINS = 4,
+        DESSERT = 8,
+        COCKTAIL = 16,
+        SURPRISE = 32
+    }

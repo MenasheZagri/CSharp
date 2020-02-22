@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dictionary_TryGet
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int key1 = 1;
+            int key2 = 2;
+            int key3 = key1 + key2;
+            string a = "a";
+            string b = "b";
+            string c = a + b;
+            Console.WriteLine(c);
+            Customer customer1 = new Customer("Manny","Odem4",123456,1982);
+            Customer customer2 = new Customer("Zagroff", "Demo", 987654, 1973);
+            Customer customer3 = new Customer("Tester", "Medo", 001133, 1969);
+
+            Dictionary<int, Customer> dictionary = new Dictionary<int, Customer>();
+            dictionary.Add(key1, customer1);
+            dictionary.Add(key2, customer2);
+            dictionary.Add(key3, customer3);
+
+            Customer cust = dictionary[key3];
+            Console.WriteLine(cust);
+
+
+            //brute force protection:
+            //1- option 
+            if (dictionary.ContainsKey(55))
+            {
+                cust = dictionary[55];
+            }
+
+            //2- option
+            dictionary.TryGetValue(55, out Customer res55);
+        }
+    }
+
+    class Customer
+    {
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int Id { get; set; }
+        public int BirthYear { get; set; }
+        public Customer(string name, string address, int id, int birthYear)
+        {
+            Name = name;
+            Address = address;
+            Id = id;
+            BirthYear = birthYear;
+        }
+
+        public override string ToString()
+        {
+            return $"Name {Name} \t\t\tAddress {Address} \t\t\tID {Id} \t\t\tBirth Year {BirthYear}";
+        }
+    }
+}
