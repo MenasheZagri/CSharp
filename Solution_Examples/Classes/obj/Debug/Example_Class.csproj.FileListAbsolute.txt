@@ -1,0 +1,12 @@
+C:\Users\manny\source\repos\ConsoleApp20\obj\Debug\Example_Class.csprojAssemblyReference.cache
+C:\Users\manny\source\repos\ConsoleApp20\bin\Debug\ConsoleApp20.exe.config
+C:\Users\manny\source\repos\ConsoleApp20\bin\Debug\ConsoleApp20.exe
+C:\Users\manny\source\repos\ConsoleApp20\bin\Debug\ConsoleApp20.pdb
+C:\Users\manny\source\repos\ConsoleApp20\obj\Debug\ConsoleApp20.exe
+C:\Users\manny\source\repos\ConsoleApp20\obj\Debug\ConsoleApp20.pdb
+E:\Dropbox\R&D\Hackeru\Module - C# Advanced 2\Example_Classes\bin\Debug\ConsoleApp20.exe.config
+E:\Dropbox\R&D\Hackeru\Module - C# Advanced 2\Example_Classes\bin\Debug\ConsoleApp20.exe
+E:\Dropbox\R&D\Hackeru\Module - C# Advanced 2\Example_Classes\bin\Debug\ConsoleApp20.pdb
+E:\Dropbox\R&D\Hackeru\Module - C# Advanced 2\Example_Classes\obj\Debug\Example_Class.csprojAssemblyReference.cache
+E:\Dropbox\R&D\Hackeru\Module - C# Advanced 2\Example_Classes\obj\Debug\ConsoleApp20.exe
+E:\Dropbox\R&D\Hackeru\Module - C# Advanced 2\Example_Classes\obj\Debug\ConsoleApp20.pdb
