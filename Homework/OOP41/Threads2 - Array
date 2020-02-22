@@ -1,0 +1,74 @@
+    class Program
+    {
+        static Stopwatch globalTimer = new Stopwatch();
+        static Stopwatch timer = new Stopwatch();
+        static int[] numbers = new int[1000];
+
+        static void Main(string[] args)
+        {
+            Thread p0 = new Thread(PrintArray);
+            Thread t1 = new Thread(Set100ItemsInArray);
+            Thread t2 = new Thread(Set100ItemsInArray);
+            Thread t3 = new Thread(Set100ItemsInArray);
+            Thread t4 = new Thread(Set100ItemsInArray);
+            Thread t5 = new Thread(Set100ItemsInArray);
+            Thread t6 = new Thread(Set100ItemsInArray);
+            Thread t7 = new Thread(Set100ItemsInArray);
+            Thread t8 = new Thread(Set100ItemsInArray);
+            Thread t9 = new Thread(Set100ItemsInArray);
+            Thread t10 = new Thread(Set100ItemsInArray);
+            globalTimer.Start();
+            
+            t1.Start(0);
+            t2.Start(100);
+            t3.Start(200);
+            t4.Start(300);
+            t5.Start(400);
+            t6.Start(500);
+            t7.Start(600);
+            t8.Start(700);
+            t9.Start(800);
+            t10.Start(900);
+            
+           //Set100ItemsSimple();
+            globalTimer.Stop();
+            Console.WriteLine("Global Thread time" + globalTimer.ElapsedMilliseconds);
+                  
+        }
+        public static void Set100ItemsInArray(object parameter)
+        {
+            int param = (int) parameter;
+            timer.Start();
+            for (int i = 0; i < param; i++)
+            {
+                numbers[i] = i + (param-1);
+                Console.Write(string.Format("{0}", i));
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+            }
+            timer.Stop();
+            Console.WriteLine("Time Elapsed:" + timer.ElapsedMilliseconds);
+        }
+
+        public static void Set100ItemsSimple()
+        {
+            timer.Start();
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = i;
+                Console.Write(string.Format("{0}", i));
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+            }
+            timer.Stop();
+            Console.WriteLine("Time Elapsed:" + timer.ElapsedMilliseconds);
+        }
+
+        public static void PrintArray()
+        {
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                Console.Write(numbers[i] + ",");
+            }
+
+        }
+
+    }

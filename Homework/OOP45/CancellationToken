@@ -1,0 +1,36 @@
+    class Program
+    {
+        static CancellationTokenSource tokenSource = new CancellationTokenSource();
+        static void Main(string[] args)
+        {
+            Task<int> task1 = new Task<int>(() =>
+            {
+                int a = 1;
+                int b = 1;
+                int result = 1;
+                while (true && !tokenSource.IsCancellationRequested)
+                {
+                    a = (b++) + (a + 1);
+                    result = a;
+                    Console.WriteLine($"Adding {b} result is: {a}");
+                    Thread.Sleep(500);
+                }
+                return result;
+            });
+
+            Task task2 = new Task(() =>
+            {
+                Console.WriteLine("Press any key to call for cancellation token");
+                Console.ReadKey();
+                Console.WriteLine("Calling for cancellation token");
+                tokenSource.Cancel();
+                Console.WriteLine($"Task1 final result is: {task1.Result}");
+            });
+
+            task1.Start();
+            task2.Start();
+
+            task1.Wait();
+            task2.Wait();
+        }
+    }

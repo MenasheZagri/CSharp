@@ -1,0 +1,73 @@
+   //DB DEmo, DBDEMO, DatabaseDemo, Database Demo 
+   class Program
+    {
+        static AutoResetEvent are = new AutoResetEvent(false);
+        static void Main(string[] args)
+        {
+            new Thread(ConnectToDB).Start();
+            new Thread(ClientCreate).Start();
+            new Thread(ClientReadList).Start();
+            new Thread(ClientDelete).Start();
+            new Thread(DisconnectFromDB).Start();
+        }
+        static void ConnectToDB()
+        {
+            Console.WriteLine("Connecting to database");
+            Counter(4000);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Connected to database! :)");
+            Console.ResetColor();
+            are.Set();
+
+        }
+
+        static void ClientCreate()
+        {
+            are.WaitOne();
+            Console.WriteLine("\nCreating new client.....");
+            Counter(new Random().Next(1000, 2000));
+            Console.WriteLine("Client created.....");
+            are.Set(); 
+        }
+
+        static void ClientDelete()
+        {
+            are.WaitOne();
+            Console.WriteLine("\nDeleting client.....");
+            Counter(new Random().Next(1000));
+            Console.WriteLine("Client deleted.....");
+            are.Set();
+        }
+
+        static void ClientReadList()
+        {
+            are.WaitOne();
+            Console.WriteLine("\nRetrieving client list....");
+            Counter(new Random().Next(1000));
+            Console.WriteLine("\nList of Clients: Dad, Mom, Brother, Sister.....");
+            are.Set();
+        }
+
+        static void DisconnectFromDB()
+        {
+            are.WaitOne();
+            Console.WriteLine("\nDisconnecting from Database.....");
+            Counter(new Random().Next(1000));
+            Console.WriteLine("....Thank you and goodbye!");
+            are.Set();
+        }
+        static void Counter(int value)
+        {
+            //Console.WriteLine("Delay set for: " + (value/1000) + " seconds.");
+            int loop = value / 10;
+            for (int i = 0; i <= loop; i++)
+            {
+                Console.Write("Counting: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(string.Format("{0}", i + "0"));
+                Console.ResetColor();
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                Thread.Sleep(10);
+            }
+        }
+    }

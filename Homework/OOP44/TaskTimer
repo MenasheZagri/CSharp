@@ -1,0 +1,39 @@
+    class Program
+    {
+        static Random random = new Random();
+        static void Main(string[] args)
+        {
+            Task<int> randomNumberTask1 = new Task<int>(() =>
+            {
+                Console.WriteLine($"i am task one my id: {Thread.CurrentThread.ManagedThreadId}");
+                int value1 = random.Next(1000, 2000);
+                Thread.Sleep(value1);
+                return value1;
+            }, TaskCreationOptions.LongRunning);
+
+            Task<int> randomNumberTask2 = new Task<int>(() =>
+            {
+
+                Console.WriteLine($"i am task two my id: {Thread.CurrentThread.ManagedThreadId}");
+                int value2 = random.Next(1000, 2000);
+                Thread.Sleep(value2);
+                return value2;
+            }, TaskCreationOptions.LongRunning);
+
+            randomNumberTask1.Start();
+            randomNumberTask2.Start();
+
+            Task.WaitAny(randomNumberTask1, randomNumberTask2);
+            if (randomNumberTask1.IsCompleted)
+            {
+                Console.WriteLine($"Task one slept for {randomNumberTask1.Result}");
+                Console.WriteLine($"Task two slept for {randomNumberTask2.Result}");
+            }
+            else
+            {
+                Console.WriteLine($"Task two slept for {randomNumberTask2.Result}");
+                Console.WriteLine($"Task one slept for {randomNumberTask1.Result}");
+            }
+
+        }
+    }

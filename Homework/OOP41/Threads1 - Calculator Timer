@@ -1,0 +1,69 @@
+
+    class Program
+    {
+        public static Random random = new Random();
+        public static bool result;
+        public static void Math()
+        {
+            Console.WriteLine("Enter the multiplication result of the following:");
+            int x = random.Next(0, 10);
+            int y = random.Next(0, 10);
+            Console.WriteLine(x);
+            Console.WriteLine(y);
+            if (int.TryParse(Console.ReadLine(), out int user) == false) Console.WriteLine("This is not a number");
+            if (user == (x*y))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("well done");
+                result = true;
+            }
+            else
+            {
+                Console.WriteLine("wrong");
+                result = false;
+            }
+        }
+       
+        static void PrintWelcome()
+        {
+            Console.WriteLine("Hello and welcome to Quick-Mult");
+            Console.WriteLine("# # # # # # # # # # # # # # # #");
+        }
+
+        static void PrintSeconds()
+        {
+            for (int i = 5; i >= 0; i--)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("\t\t" + string.Format("{0}", i));
+                Console.Write("\r".PadLeft(Console.WindowWidth - Console.CursorLeft - 1));
+                Thread.Sleep(1000);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            
+            Thread a = new Thread(Math);
+            Thread b = new Thread(PrintSeconds);
+            b.IsBackground = true;
+
+            PrintWelcome();
+            a.Start();
+            b.Start();
+
+            if (result == true )
+            {
+                b.Abort();
+                Console.WriteLine("Awesome!");
+            }
+            if (b.ThreadState == ThreadState.Running && result == null)
+            {
+                Console.WriteLine("out of time");
+            }
+            
+        }
+    
+
+    }
+

@@ -1,0 +1,32 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Writing file to disk");
+            Task checker = WriteFile();
+            while (!checker.Wait(100))
+            {
+                Console.Write(". ");
+            }
+
+            if (checker.IsCompleted)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Finished!");
+            }
+
+        }
+        static async Task WriteFile()
+        {
+            string filePath = @"c:\temp";
+            StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, "text.txt"));
+            {
+                for (int i = 0; i <= 1000; i++)
+                {
+                    await outputFile.WriteAsync(i.ToString() + " ");
+                    Thread.Sleep(1);
+                }
+
+            }
+        }
+    }

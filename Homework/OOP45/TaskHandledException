@@ -1,0 +1,38 @@
+    class Program
+    {
+        static CancellationTokenSource tokenSource = new CancellationTokenSource();
+        static void Main(string[] args)
+        {
+            Task task = new Task(() =>
+            {
+                int[] array = new int[1];
+                Console.WriteLine(array[4]);
+            });
+            task.Start();
+
+            Thread.Sleep(1000);
+            if (task.IsFaulted)
+            {
+                task.Exception.Handle(exception => 
+                { 
+                    Console.WriteLine($"the task failed due\n {exception}"); 
+                    return true;
+                });
+            }
+
+            Console.WriteLine("And the show must go on");
+
+            //Alternatively use TryCatch on the wait
+            /*
+            try
+            {
+                task.Wait();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            */
+        }
+    }
