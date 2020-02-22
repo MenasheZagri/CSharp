@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ArrayOfCar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Car>
+    <_fileName />
+    <_model>4 Series</_model>
+    <_brand>BMW</_brand>
+    <_year>2017</_year>
+    <_color>White</_color>
+  </Car>
+  <Car>
+    <_fileName />
+    <_model>S60</_model>
+    <_brand>Volvo</_brand>
+    <_year>2016</_year>
+    <_color>Silver</_color>
+  </Car>
+  <Car>
+    <_fileName />
+    <_model>A4</_model>
+    <_brand>Audi</_brand>
+    <_year>2018</_year>
+    <_color>Black</_color>
+  </Car>
+</ArrayOfCar>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Car xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <_fileName />
+  <_model>6 Series</_model>
+  <_brand>Mazda</_brand>
+  <_year>2019</_year>
+  <_color>Blue</_color>
+</Car>
