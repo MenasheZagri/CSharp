@@ -30,5 +30,5 @@ namespace ConsoleApp56
             MyCanvas.DeleteLastButton();
             Console.WriteLine($"Current number of buttons: {MyCanvas.GetCurrentNumberOfButtons()}");
         }
-    }
+    } 
 }
