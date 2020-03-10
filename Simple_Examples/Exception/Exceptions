@@ -1,0 +1,46 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Two examples for exceptions: Divide by zero, Out of bounds array
+            try
+            {
+                Console.WriteLine("Enter two numbers");
+                int a = Convert.ToInt32(Console.ReadLine());
+                int b = Convert.ToInt32(Console.ReadLine());
+
+                //Calling a function which has both out of range and div by zero exceptions
+                foo(a,b);
+
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine("Out of range");
+                Console.WriteLine(e.StackTrace);
+            }
+
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine("Divide by zero");
+                Console.WriteLine(e.StackTrace);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        static void foo(int a, int b)
+        {
+            //1 - divide by zero
+            Console.WriteLine($"Trying to divide {a} with {b}");
+            int c = a / b;
+
+            int[] array = {1, 2, 3};
+            //2 - out of bounds array 
+            Console.WriteLine("Trying to access out of bounds in array");
+            Console.WriteLine(array[5]);
+        }
+    }
