@@ -1,0 +1,113 @@
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string keyWord = "password1234";
+            MyProtectedUniqueList list = new MyProtectedUniqueList(keyWord);
+            list.Add("Apple");
+            list.Add("Juice");
+            list.Add("Banana");
+            list.RemoveAt(0);
+            foreach (var VARIABLE in list)
+            {
+                
+            }
+
+        }
+    }
+
+
+    public class MyProtectedUniqueList :IEnumerable
+    {
+       private List<string> list = new List<string>();
+       protected string _keyWord;
+
+       
+       public MyProtectedUniqueList(string keyWord)
+       { 
+           _keyWord = keyWord;
+       }
+
+       public void Add(string word)
+       {
+           CheckIfNullOrEmpty(word);
+
+           if (list.Contains(word))
+           {
+               throw  new InvalidOperationException($"{word} already contained within {list}");
+           }
+           else
+           {
+               list.Add(word);
+               Console.WriteLine($"{word} added to {list}");
+           }
+       }
+
+        public void Remove(string word)
+        {
+            CheckIfNullOrEmpty(word);
+
+            if (!list.Contains(word))
+            {
+                throw new ArgumentException(word);
+            }
+            list.Remove(word);
+            Console.WriteLine($"{word} removed from {list}");
+        }
+
+       public void RemoveAt (int index)
+        {
+            if  ( index < 0)
+            {
+                throw new ArgumentOutOfRangeException($"{index} is less than 0");
+            }
+
+            if (index >= list.Count)
+            {
+                throw new ArgumentOutOfRangeException($"{index} is out of range");
+            }
+            list.RemoveAt(index);
+            Console.WriteLine($"removed from index {index}");
+        }
+
+       public void Clear(string keyWord)
+       {
+           if (keyWord != "password1234")
+           {
+               throw  new AccessViolationException($"key word: {keyWord} invalid");
+           }
+           list.Clear();
+           Console.WriteLine("List cleared");
+
+        }
+
+        public void Sort(string keyWord)
+       {
+
+       }
+
+       public void CheckIfNullOrEmpty(string word)
+       {
+           if (word == null || word == string.Empty)
+           {
+               throw new ArgumentNullException("String is empty or null");
+           }
+       }
+
+       public override string ToString()
+       {
+           return base.ToString();
+       }
+
+
+       public IEnumerator<string> GetEnumerator()
+        {
+            return list.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return list.GetEnumerator();
+        }
+        
+    }
