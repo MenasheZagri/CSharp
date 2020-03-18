@@ -8,7 +8,7 @@ namespace ConsoleApp19
 {
     class Car
     {
-        public string Brand { get; private set; }
+        public string Brand { get; set; }
         public bool TotalLost { get; private set; }
         public bool NeedsRepair { get; set; }
 
